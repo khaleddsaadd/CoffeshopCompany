@@ -8,7 +8,7 @@ if(isset($_POST['signin']))
 {
 // Posted Values
 $uname=$_POST['Username'];
-$pasword=md5($_POST['password']);
+$pasword=$_POST['password'];
 //Function Calling
 $ret=$usercredentials->signin($uname,$pasword);
 $num=mysqli_fetch_array($ret);
