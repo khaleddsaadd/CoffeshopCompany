@@ -1,21 +1,48 @@
+<head>
+<style>
+  <?php 
+  include "css/addproduct.css";
+  ?>
+</style>
+</head>
+<body>
+  <div class="form-body">
+        <div class="row">
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                      <h3>Add Products</h3>
 <form method= "post" action ="" >
+<div class="col-md-12">
+ <input class="form-control" type="text" name="pName" placeholder="Product Name" ></div><br>
 
- <input type="text" name="pName" placeholder="Product Name" ><br>
+<div class="col-md-12">
+ <input class="form-control" type="text" name="pPrice" placeholder="Product Price" ></div><br>
 
- <input type="text" name="pPrice" placeholder="Product Price" ><br>
+<div class="col-md-12">
+ <input class="form-control" type="file" name="pImage" placeholder="Product Image" ></div><br>
 
- <input type="file" name="pImage" placeholder="Product Image" ><br>
+<div class="col-md-12">
+ <input class="form-control" type="text" name="pDescription" placeholder="Product Description"></div><br>
 
- <input type="text" name="pDescription" placeholder="Product Description"><br>
+<div class="col-md-12">
+ <input class="form-control" type="text" name="pIngredients" placeholder="Ingredients"></div><br>
 
- <input type="text" name="pIngredients" placeholder="Ingredients"><br>
+  <div class="col-md-12">
+ <input class="form-control" type="text" name="pBeverages" placeholder="Type" ></div><br>
+  <div class="form-button mt-3">
 
- <input type="text" name="pBeverages" placeholder="Type" ><br>
-  
-<input id="submit" type="submit" name='sub'>
-
+<input class="btn btn-primary" id="submit" type="submit" name='sub'>
+</div>
 </form>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 <?php
+
 if(isset($_POST['sub']))
 {
   include "dbclass.php";
