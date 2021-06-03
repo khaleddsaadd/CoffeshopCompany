@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=$userid.0">
     <title>cart</title>
 </head>
 <body>
@@ -21,6 +21,7 @@ public $servername = "localhost";
 public $username = "root";
 public $password = "";
 public $dbname="coffee_shop";
+private $userid = $_SESSION['Logged_in_ID'];
 
     protected function connect ()
         {
@@ -36,7 +37,7 @@ public $dbname="coffee_shop";
    
     function show_name()
     {
-        $sql = "SELECT * FROM cart WHERE User_id = 1";
+        $sql = "SELECT * FROM cart WHERE User_id = $userid";
         $result = $this->connect()->query($sql);
         $show = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
@@ -57,7 +58,7 @@ public $dbname="coffee_shop";
 
     function show_image()
     {
-        $sql = "SELECT * FROM cart WHERE User_id = 1";
+        $sql = "SELECT * FROM cart WHERE User_id = $userid";
         $result = $this->connect()->query($sql);
         $show = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
@@ -77,7 +78,7 @@ public $dbname="coffee_shop";
     }
     function show_price()
     {
-        $sql = "SELECT * FROM cart WHERE User_id = 1";
+        $sql = "SELECT * FROM cart WHERE User_id = $userid";
         $result = $this->connect()->query($sql);
         $show = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
@@ -98,7 +99,7 @@ public $dbname="coffee_shop";
 
     function show_quantity() 
     {
-        $sql = "SELECT * FROM cart WHERE User_id = 1";
+        $sql = "SELECT * FROM cart WHERE User_id = $userid";
         $result = $this->connect()->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) 
@@ -111,7 +112,7 @@ public $dbname="coffee_shop";
 
     function show_id() 
     {
-        $sql = "SELECT * FROM cart WHERE User_id = 1";
+        $sql = "SELECT * FROM cart WHERE User_id = $userid";
         $result = $this->connect()->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) 
@@ -124,7 +125,7 @@ public $dbname="coffee_shop";
 
     function show_total_price() 
     {
-         $sql = "SELECT * FROM cart WHERE User_id = 1";
+         $sql = "SELECT * FROM cart WHERE User_id = $userid";
          $result = $this->connect()->query($sql);
         if ($result->num_rows > 0) 
         {
