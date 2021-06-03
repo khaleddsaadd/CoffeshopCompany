@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2021 at 02:00 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.4
+-- Generation Time: Jun 03, 2021 at 02:59 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -42,20 +41,8 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`ID`, `User_id`, `P_Id`, `Total_Price`, `Quantity`) VALUES
 (17, 0, 55, 120, 9),
-(18, 0, 55, 120, 9);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orders`
---
-
-CREATE TABLE `orders` (
-  `O_id` int(11) NOT NULL,
-  `User_id` int(11) NOT NULL,
-  `P_Id` int(11) NOT NULL,
-  `Total_Price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(18, 0, 55, 120, 9),
+(19, 0, 3, 1, 45);
 
 -- --------------------------------------------------------
 
@@ -91,7 +78,7 @@ INSERT INTO `products` (`P_Id`, `P_Name`, `P_Price`, `P_Image`, `P_Description`,
 
 CREATE TABLE `users` (
   `User_Id` int(11) NOT NULL,
-  `Name` varchar(255) NOT NULL,
+  `Username` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
   `Password` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -100,9 +87,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`User_Id`, `Name`, `Email`, `Password`) VALUES
-(1, 'reem', 'reem@gmail.com', 123),
-(2, 'reem', 'reem@gmail.com', 123);
+INSERT INTO `users` (`User_Id`, `Username`, `Email`, `Password`) VALUES
+(1, 'Mohammed Tarek', 'mohammed@hotmail.com', 123),
+(2, 'kareem yasser', 'kareem@hotmail.com', 202),
+(3, 'khaled saad', 'khaled@hotmail.com', 123),
+(4, 'reem', 'reem@hotmail.com', 123);
 
 --
 -- Indexes for dumped tables
@@ -113,12 +102,6 @@ INSERT INTO `users` (`User_Id`, `Name`, `Email`, `Password`) VALUES
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD KEY `User_id` (`User_id`);
 
 --
 -- Indexes for table `products`
@@ -152,18 +135,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`User_id`) REFERENCES `users` (`User_Id`),
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`P_Id`) REFERENCES `products` (`P_Id`);
+  MODIFY `User_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

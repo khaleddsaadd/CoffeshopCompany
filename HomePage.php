@@ -1,5 +1,8 @@
+<?php session_start();?>
 <?php require_once("HomePageClass.php");
  ?>
+<?php include 'NavBar.php';?>
+
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,8 +33,9 @@
                     $id= $_GET["id"];
                     $pr = $_GET["pr"];
                     $quantity = $_POST['quantity'];
+                    $uid = $_SESSION['uid'];
                     $items = new HomeProducts($id);
-                    $items -> addtocart($id,$pr,$quantity);
+                    $items -> addtocart($uid,$id,$pr,$quantity);
 
                 }
             ?>
