@@ -33,7 +33,7 @@ return $result;
 // Function for signin
 public function signin($uname,$pasword)
 	{
-	$result=mysqli_query($this->dbh,"select User_Id from users where Username='$uname' and Password='$pasword'");
+	$result=mysqli_query($this->dbh,"select * from users where Username='$uname' and Password='$pasword'");
 	return $result;
 	}
 
