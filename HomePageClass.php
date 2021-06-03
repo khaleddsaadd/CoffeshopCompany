@@ -51,11 +51,11 @@ class HomeProducts
 		}
 		return $Result;	
     }
-	public function addtocart($pid,$Q,$pr)
+	public function addtocart($uid,$pid,$Q,$pr)
 	{
 		$db_handle = new DB();
-		$res = "INSERT INTO `cart`(`P_Id`, `Total_Price`, `Quantity`)
-		 VALUES ('$pid','$pr','$Q')";
+		$res = "INSERT INTO `cart`(`User_id`,`P_Id`, `Total_Price`, `Quantity`)
+		 VALUES ('$uid','$pid','$pr','$Q')";
 		$s = mysqli_query($db_handle->conn,$res);
   		return $res;
 	}
