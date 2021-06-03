@@ -1,141 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=$userid.0">
-    <title>cart</title>
-</head>
-<body>
-<?php
+<?php require_once("CartClass.php");
+ ?>
+<html>
+    <head>
+    <title>The Coffee Shop | Store</title>
+        <meta name="description" content="This is the description">
+       <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
-session_start();
-
-
-
-class Cart  
-{
-private $total_price=0;
-public $servername = "localhost";
-public $username = "root";
-public $password = "";
-public $dbname="coffee_shop";
-private $userid = $_SESSION['Logged_in_ID'];
-
-    protected function connect ()
-        {
-        $this->servername = "localhost";
-        $this->username = "root";
-        $this->password = "";
-        $this->dbname="coffee_shop";
-
-        $conn = new mysqli($this->servername, $this->username, $this->password,$this->dbname);
-        return $conn;
-        }
-
-   
-    function show_name()
-    {
-        $sql = "SELECT * FROM cart WHERE User_id = $userid";
-        $result = $this->connect()->query($sql);
-        $show = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        
-        foreach($show as $row) 
-        {
-            $pid = $row['P_Id'];
-            $p_name = "SELECT * FROM products WHERE P_Id = $pid";
-            $result_name = $this->connect()->query($p_name);
-            if ($result->num_rows > 0) 
-            {
-                while($roww = $result_name->fetch_assoc()) 
+   <link rel="stylesheet" href="Cart.css" />
+       
+    </head>
+    <body>
+    <form action = "Cart.php" method = "post">
+        <section class="container content-section">
+            <h2 class="section-header">My Cart</h2>
+            <div class="cart-row">
+                <span class="cart-item cart-header cart-column">ITEM</span>
+                <span class="cart-price cart-header cart-column">PRICE</span>
+                <span class="cart-quantity cart-header cart-column">QUANTITY</span>
+            </div>
+            <div class="cart-items">
+            <?php
+                $totalPrice = 0; 
+                //hna elmfrood el user id elda5el bdal 1
+                $usercart =CartItem::UserCart(1);
+                foreach($usercart as $cart)
                 {
-                    echo $roww["P_Name"]."<br>"."<br>"."<br>";
+            ?>
+            <div class="cart-row">
+                    <div class="cart-item cart-column">
+                    <img class="cart-item-image" src="images/<?php echo $cart->P_Image; ?>" width="100" height="100">
+                    <span class="cart-item-title"><?php echo $cart->P_Name; ?></span>
+                    </div>
+                    <span class="cart-price cart-column"><?php echo $cart->Total_Price; ?> $</span>                
+                    <div class="cart-quantity cart-column">
+                        <input class="cart-quantity-input" type="number" min="1" oninput="changePrice(this.value,<?php echo $cart->Total_Price; ?>)" value="<?php echo $cart->quantity; ?>">
+                        <button class="btn btn-danger" onClick="<?php echo $cart->removefromcart($cart->ID); ?>">REMOVE</button> 
+                    </div>
+                </div>
+      
+            <?php 
+            $calculatedPrice = $cart->Total_Price * $cart->quantity;
+            $totalPrice += $calculatedPrice;
                 }
-            }
-        }     
-    }
-
-    function show_image()
-    {
-        $sql = "SELECT * FROM cart WHERE User_id = $userid";
-        $result = $this->connect()->query($sql);
-        $show = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        
-        foreach($show as $row) 
-        {
-            $pid = $row['P_Id'];
-            $p_name = "SELECT * FROM products WHERE P_Id = $pid";
-            $result_name = $this->connect()->query($p_name);
-            if ($result->num_rows > 0) 
-            {
-                while($roww = $result_name->fetch_assoc()) 
+                if($_POST)
                 {
-                    echo $roww["P_Image"]."<br>"."<br>"."<br>";
+                    $cart -> saveorder($totalPrice);
+
                 }
-            }
-        }     
-    }
-    function show_price()
-    {
-        $sql = "SELECT * FROM cart WHERE User_id = $userid";
-        $result = $this->connect()->query($sql);
-        $show = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        
-        foreach($show as $row) 
-        {
-            $pid = $row['P_Id'];
-            $p_name = "SELECT * FROM products WHERE P_Id = $pid";
-            $result_name = $this->connect()->query($p_name);
-            if ($result->num_rows > 0) 
-            {
-                while($roww = $result_name->fetch_assoc()) 
+            ?>
+        </div>
+        <script>
+                function changePrice(x,price)
                 {
-                    echo $roww["P_Price"]."<br>"."<br>"."<br>";
+                    document.getElementById('tPrice').innerHTML = x * price + "$";
+                    document.getElementById('ttPrice').value = x * price;
                 }
-            }
-        }    
-    }
-
-    function show_quantity() 
-    {
-        $sql = "SELECT * FROM cart WHERE User_id = $userid";
-        $result = $this->connect()->query($sql);
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) 
-            {
-            echo $row["Quantity"]."<br>"."<br>"."<br>";
-            }
-    }
-
-    }
-
-    function show_id() 
-    {
-        $sql = "SELECT * FROM cart WHERE User_id = $userid";
-        $result = $this->connect()->query($sql);
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) 
-            {
-            echo $row["P_Id"]."<br>"."<br>"."<br>";
-            }
-    }
-
-    }
-
-    function show_total_price() 
-    {
-         $sql = "SELECT * FROM cart WHERE User_id = $userid";
-         $result = $this->connect()->query($sql);
-        if ($result->num_rows > 0) 
-        {
-            while($row = $result->fetch_assoc()) 
-            {
-            echo $row["Total_Price"]."<br>"."<br>"."<br>";
-            }
-        }
-    }
-}
-?> 
-</body>
+            </script>
+        <div class="cart-total">
+                <strong class="cart-total-title">Total</strong>
+                <span class="cart-total-price" id="tPrice"><?php echo $totalPrice;  ?>$</span>
+            </div>
+            <input type="hidden" name="totalPrice" id="ttPrice" value="<?php echo $totalPrice; ?>">
+            <input type = "submit" class="btn btn-primary btn-purchase" name = "save" value = "PURCHASE" >
+        </section>
+         </form>
+    </body>
 </html>

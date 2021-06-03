@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2021 at 10:33 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Generation Time: Jun 03, 2021 at 02:00 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -42,8 +42,20 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`ID`, `User_id`, `P_Id`, `Total_Price`, `Quantity`) VALUES
 (17, 0, 55, 120, 9),
-(18, 0, 55, 120, 9),
-(19, 0, 3, 1, 45);
+(18, 0, 55, 120, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `O_id` int(11) NOT NULL,
+  `User_id` int(11) NOT NULL,
+  `P_Id` int(11) NOT NULL,
+  `Total_Price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -85,6 +97,14 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`User_Id`, `Name`, `Email`, `Password`) VALUES
+(1, 'reem', 'reem@gmail.com', 123),
+(2, 'reem', 'reem@gmail.com', 123);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -93,6 +113,12 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD KEY `User_id` (`User_id`);
 
 --
 -- Indexes for table `products`
@@ -126,7 +152,18 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `User_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`User_id`) REFERENCES `users` (`User_Id`),
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`P_Id`) REFERENCES `products` (`P_Id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
