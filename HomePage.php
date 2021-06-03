@@ -1,6 +1,8 @@
 <?php session_start();?>
 <?php require_once("HomePageClass.php");
  ?>
+<?php include 'NavBar.php';?>
+
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -54,7 +54,6 @@ class HomeProducts
 	public function addtocart($uid,$pid,$Q,$pr)
 	{
 		$db_handle = new DB();
-		echo $uid;
 		$res = "INSERT INTO `cart`(`User_id`,`P_Id`, `Total_Price`, `Quantity`)
 		 VALUES ('$uid','$pid','$pr','$Q')";
 		$s = mysqli_query($db_handle->conn,$res);
