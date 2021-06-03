@@ -1,6 +1,6 @@
 
 body{
- background-color: #668B91;
+ background-color: white;
   font-family: Helvetica;
   text-align:center;
   font-size: 100%;
@@ -8,10 +8,12 @@ body{
   display: block;
 }
 
+
 .section-header{
 
-margin-top: 200px;
-
+margin-top: 150px;
+text-align: center;
+	font-size: 50px;
 
 
 }
