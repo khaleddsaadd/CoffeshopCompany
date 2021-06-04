@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="HomePageCss.css">
     </head>
     <body>
+
         <div id="product-grid">
             <?php 
                 $allproducts =HomeProducts::AllProducts();
@@ -21,7 +22,7 @@
                             <center>
                             <label class="Name"><?php echo $product -> name ?></label> <br><br>
                             <label class="Price"><?php echo $product -> price ?> EGP</label> <br><br>
-                            <input type="number" name="quantity" placeholder="Quantity" value="1"><br><br>
+                            <input type="number" name="quantity" placeholder="Quantity" min="1" max="50" value="1"><br><br>
                             <input type="submit" value ="Add to cart" name="ID"> <br>
                             </center>
                         </form>
@@ -35,7 +36,7 @@
                     $quantity = $_POST['quantity'];
                     $uid = $_SESSION['uid'];
                     $items = new HomeProducts($id);
-                    $items -> addtocart($uid,$id,$pr,$quantity);
+                    $items -> addtocart($uid,$id,$quantity,$pr);
 
                 }
             ?>

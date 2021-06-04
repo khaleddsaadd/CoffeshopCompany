@@ -1,4 +1,5 @@
 <?php
+ session_start();
 class DB
 {
 	private $host = "localhost";
@@ -16,10 +17,10 @@ class DB
 		return $conn;
 	}
 }
+$User_id = $_SESSION['uid'];
 class CartItem
 {
     public $ID;
-    public $User_id; 
     public $P_Id;
     public $Total_Price;
     public $quantity;
@@ -50,7 +51,7 @@ class CartItem
             $this->User_id = $row["User_id"];
             $this->P_Id = $row["P_Id"];
             $this->Total_Price = $row["Total_Price"];
-            $this->quantity = $row["quantity"];
+            $this->quantity = $row["Quantity"];
         }
         $this->setproduct($this->P_Id);
     }
@@ -72,6 +73,18 @@ class CartItem
 
 		return $Result;	
     }
+	/*	Static function UserCart($User_id)
+		{
+            $db_handle = new DB();
+		    $sql ="SELECT * FROM cart WHERE User_id=".$User_id;
+		    $result = mysqli_query($db_handle -> conn,$sql);
+		if ($result->num_rows > 0) {
+			$row = $result->fetch_assoc();
+			return $row;
+		    }else{
+			echo "Record not found";
+		    }
+		}*/
 	public function removefromcart($removedID)
 	{
 		$db_handle = new DB();
@@ -79,18 +92,24 @@ class CartItem
         $removeResultt = mysqli_query($db_handle->conn, $removeitem);
   		return $removeResultt;
 	}
-    public function saveorder($price)
+    /*
+    public function saveorder()
 	{
 		$db_handle = new DB();
-        $sql = "INSERT INTO `orders` (`User_id`, `P_Id` ,`Total_Price`) 
-		        VALUES ('$this->User_id', '$this->P_Id', '$price')";
-        $insertResult = mysqli_query($db_handle->conn, $sql);
-               
-
-        $removeCart = "DELETE FROM cart WHERE User_id=$this->User_id";
-        $removeResult = mysqli_query($db_handle->conn, $removeCart);
-        return $removeResult;
-	}
+        $clearCart = "DELETE * FROM cart WHERE User_id=$User_id";
+        $clear = mysqli_query($db_handle->conn, $clearCart);
+	} */
+    public function saveorder($User_id)
+    {
+        $db_handle = new DB();
+        $clearCart = "DELETE FROM cart WHERE User_id = '$User_id'";
+        $sql1 = mysqli_query($db_handle->conn, $clearCart);
+		if ($sql1==true) {
+			echo "<script type='text/javascript'>alert('THANK YOU FOR PURCHASING');</script>";
+		}else{
+			echo "<script type='text/javascript'>alert('Something went wrong.Try again.');</script>";
+		    }
+    }
 
 } 
 ?>

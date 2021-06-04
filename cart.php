@@ -9,10 +9,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
    <link rel="stylesheet" href="Cart.css" />
-       
+   <?php include 'NavBar.php';?>
     </head>
     <body>
-    <form action = "Cart.php" method = "post">
+    <form action = "cart.php" method = "post">
         <section class="container content-section">
             <h2 class="section-header">My Cart</h2>
             <div class="cart-row">
@@ -22,9 +22,12 @@
             </div>
             <div class="cart-items">
             <?php
+             $uid = $_SESSION['uid'];
                 $totalPrice = 0; 
                 //hna elmfrood el user id elda5el bdal 1
-                $usercart =CartItem::UserCart(1);
+                $usercart =CartItem::UserCart($uid);
+                if (is_array($usercart) || is_object($usercart))
+                {
                 foreach($usercart as $cart)
                 {
             ?>
@@ -43,10 +46,10 @@
             <?php 
             $calculatedPrice = $cart->Total_Price * $cart->quantity;
             $totalPrice += $calculatedPrice;
-                }
+                } }
                 if($_POST)
                 {
-                    $cart -> saveorder($totalPrice);
+                    $cart -> saveorder($uid);
 
                 }
             ?>
@@ -63,7 +66,7 @@
                 <span class="cart-total-price" id="tPrice"><?php echo $totalPrice;  ?>$</span>
             </div>
             <input type="hidden" name="totalPrice" id="ttPrice" value="<?php echo $totalPrice; ?>">
-            <input type = "submit" class="btn btn-primary btn-purchase" name = "save" value = "PURCHASE" >
+            <input type = "submit" class="btn btn-primary btn-purchase" name = "post" value = "PURCHASE" >
         </section>
          </form>
     </body>

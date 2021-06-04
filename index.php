@@ -9,7 +9,7 @@ if(isset($_POST['submit']))
 
 $uname=$_POST['Username'];
 $uemail=$_POST['email'];
-$pasword=md5($_POST['password']);
+$pasword=$_POST['password'];
 //Function Calling
 $sql=$userdata->registration($uname,$uemail,$pasword);
 if($sql)

@@ -36,10 +36,11 @@ class HomeProducts
             $this->image = $row["P_Image"];
         }
     }
+
     static function AllProducts()
     {
         $db_handle = new DB();
-		$sql="select * from products";
+		$sql="SELECT * FROM products";
 		$result = mysqli_query($db_handle -> conn,$sql);
 		$i=0;
 		$Result;
