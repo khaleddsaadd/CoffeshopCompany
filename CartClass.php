@@ -70,8 +70,11 @@ class CartItem
 			$Result[$i]=$MyObj;
 			$i++;
 		}
+		if(!empty ($Result)){
+			return $Result;	
+		}else return ;
 
-		return $Result;	
+		
     }
 	/*	Static function UserCart($User_id)
 		{

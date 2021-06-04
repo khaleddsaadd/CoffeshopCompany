@@ -26,6 +26,7 @@
                 $totalPrice = 0; 
                 //hna elmfrood el user id elda5el bdal 1
                 $usercart =CartItem::UserCart($uid);
+                if(!empty($usercart)){
                 if (is_array($usercart) || is_object($usercart))
                 {
                 foreach($usercart as $cart)
@@ -46,12 +47,14 @@
             <?php 
             $calculatedPrice = $cart->Total_Price * $cart->quantity;
             $totalPrice += $calculatedPrice;
-                } }
+                } 
+            }
                 if($_POST)
                 {
                     $cart -> saveorder($uid);
 
                 }
+            }
             ?>
         </div>
         <script>
